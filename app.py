@@ -10,11 +10,9 @@ import time
 from webdriver_manager.chrome import ChromeDriverManager
 
 def get_search_results(search_query, num_pages):
-    # Set up Chrome options to run headless
     chrome_options = Options()
-    chrome_options.add_argument("--headless")  # Run in headless mode
+    chrome_options.add_argument("--headless")
 
-    # Use WebDriver Manager to get the ChromeDriver path
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=chrome_options)
     
@@ -30,7 +28,7 @@ def get_search_results(search_query, num_pages):
 
     for page in range(num_pages):
         time.sleep(5)
-        soup = BeautifulSoup(driver.page_source, 'html.parser')  # Use 'html.parser' instead of 'lxml'
+        soup = BeautifulSoup(driver.page_source, 'html.parser')
         search_results = soup.find_all('div', {'class': 'g'})
         for result in search_results:
             title_tag = result.find('h3')
